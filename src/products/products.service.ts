@@ -10,8 +10,8 @@ import { UpdateProductDto } from './dto/update-product.dto';
 @Injectable()
 export class ProductsService {
    constructor(
-      @InjectModel(Products.name) 
-      @InjectModel(Categories.name) 
+      @InjectModel(Products.name)
+      @InjectModel(Categories.name)
       private productModel: Model<ProductDocument>,
       // private categoryModel: Model<CategoryDocument>
    ) { }
@@ -32,7 +32,14 @@ export class ProductsService {
 
    async listAllProducts() {
       try {
-         const products = await this.productModel.find({$text: {$search: 'sau'}}).limit(2)
+         const products = await this.productModel
+            .find({
+               $or: [
+                  { name: { $regex: '', } },
+                  { description: { $regex: 'Description-B', } }
+               ]
+            })
+            .populate('categoryId');
          var result = {
             error: 1,
             data: products,
@@ -50,7 +57,9 @@ export class ProductsService {
 
    async listOneProduct(id: string) {
       try {
-         const products = await this.productModel.findOne({ _id: id}).populate('categoryId')
+         const products = await this.productModel
+            .findOne({ _id: id })
+            .populate('categoryId')
          var result = {
             error: 1,
             data: products,
@@ -66,16 +75,47 @@ export class ProductsService {
       }
    }
 
-   update(id: string, updateProductDto: UpdateProductDto) {
-      return `This action updates a #${id} product`;
+   async updateProducts(id: string, data: UpdateProductDto) {
+      try {
+         const products = await this.productModel
+            .findOneAndUpdate(
+               { _id: id }, data, { new: true }
+            );
+         return products;
+      } catch (error) {
+         return error.message;
+      }
    }
 
    async removeProducts(id: string) {
       try {
-         const products = await this.productModel.findByIdAndDelete({ _id: id});
+         const products = await this.productModel
+            .findByIdAndDelete({ _id: id });
          return products;
       } catch (error) {
          return error.message;
+      }
+   }
+
+   async paging(pageSize: number, pageIndex: number) {
+      try {
+         const products = await this.productModel
+            .find()
+            .skip(pageIndex)
+            .limit(pageSize)
+            .populate('categoryId');
+         var result = {
+            error: 1,
+            data: products,
+            status: HttpStatus.OK
+         }
+         return result;
+      } catch (error) {
+         var results = {
+            error: 0,
+            message: error.message
+         };
+         return results;
       }
    }
 }
