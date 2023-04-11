@@ -5,8 +5,6 @@ import { MulterModule } from '@nestjs/platform-express';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProgramsModule } from './programs/programs.module';
-import { ClientsModule } from './clients/clients.module';
 import { ProductsModule } from './products/products.module';
 import { CategoriesModule } from './categories/categories.module';
 
@@ -16,8 +14,6 @@ console.log(ConfigModule)
    imports: [
       MongooseModule.forRoot('mongodb://127.0.0.1:27017/test-api'),
       MulterModule.register({dest: './uploads',}),
-      ProgramsModule,
-      ClientsModule,
       ProductsModule,
       CategoriesModule,
    ],

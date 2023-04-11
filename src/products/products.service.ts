@@ -16,7 +16,7 @@ export class ProductsService {
       // private categoryModel: Model<CategoryDocument>
    ) { }
 
-   async create(
+   async createProducts(
       data: CreateProductDto
    ) {
       try {
@@ -33,13 +33,7 @@ export class ProductsService {
    async listAllProducts() {
       try {
          const products = await this.productModel
-            .find({
-               $or: [
-                  { name: { $regex: '', } },
-                  { description: { $regex: 'Description-B', } }
-               ]
-            })
-            .populate('categoryId');
+            .find()
          var result = {
             error: 1,
             data: products,

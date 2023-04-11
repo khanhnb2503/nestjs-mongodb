@@ -40,7 +40,7 @@ export class ProductsController {
       @UploadedFile() file: Express.Multer.File
    ) {
       data.image = file.originalname;
-      return this.productsService.create(data);
+      return this.productsService.createProducts(data);
    }
 
    @Get('listAllProduct')
