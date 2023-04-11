@@ -34,6 +34,7 @@ export class ProductsService {
       try {
          const products = await this.productModel
             .find()
+            // .populate('categoryId')
          var result = {
             error: 1,
             data: products,
@@ -53,7 +54,7 @@ export class ProductsService {
       try {
          const products = await this.productModel
             .findOne({ _id: id })
-            .populate('categoryId')
+            // .populate('categoryId')
          var result = {
             error: 1,
             data: products,
@@ -92,12 +93,14 @@ export class ProductsService {
    }
 
    async paging(pageSize: number, pageIndex: number) {
+      // limit: Giới hạn số lượng kết quả trả về
+      // skip: Vị trị record bắt đầu lấy trong 1 collections;
       try {
          const products = await this.productModel
             .find()
             .skip(pageIndex)
             .limit(pageSize)
-            .populate('categoryId');
+            // .populate('categoryId');
          var result = {
             error: 1,
             data: products,

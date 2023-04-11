@@ -48,7 +48,7 @@ export class ProductsController {
       return this.productsService.listAllProducts();
    }
 
-   @Get('listOneProduct:id')
+   @Get('listOneProduct/:id')
    findOne(@Param('id') id: string) {
       return this.productsService.listOneProduct(id);
    }
@@ -64,7 +64,7 @@ export class ProductsController {
          }
       })
    }))
-   @Patch('updateProduct:id')
+   @Patch('updateProduct/:id')
    update(
       @Param('id') id: string,
       @Body() data: UpdateProductDto,
@@ -74,16 +74,16 @@ export class ProductsController {
       return this.productsService.updateProducts(id, data);
    }
 
-   @Delete('deleteProduct:id')
+   @Delete('deleteProduct/:id')
    remove(@Param('id') id: string) {
       return this.productsService.removeProducts(id);
    }
 
-   @Get('paging:pageSize:pageIndex')
+   @Get('paging/:pageIndex/:pageSize')
    paging(
+      @Param('pageIndex') pageIndex: number,
       @Param('pageSize') pageSize : number,
-      @Param('pageIndex') pageIndex: number
    ) {      
-      return this.paging(pageSize,pageIndex);
+      return this.productsService.paging(pageSize,pageIndex);
    }
 }
