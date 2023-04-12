@@ -34,7 +34,8 @@ export class ProductsService {
       try {
          const products = await this.productModel
             .find()
-            // .populate('categoryId')
+            // .sort({name: 1})
+         // .populate('categoryId')
          var result = {
             error: 1,
             data: products,
@@ -54,7 +55,7 @@ export class ProductsService {
       try {
          const products = await this.productModel
             .findOne({ _id: id })
-            // .populate('categoryId')
+         // .populate('categoryId')
          var result = {
             error: 1,
             data: products,
@@ -92,15 +93,19 @@ export class ProductsService {
       }
    }
 
-   async paging(pageSize: number, pageIndex: number) {
+   async paging(
+      pageSize: number,
+      pageIndex: number,
+   ) {
       // limit: Giới hạn số lượng kết quả trả về
       // skip: Vị trị record bắt đầu lấy trong 1 collections;
       try {
          const products = await this.productModel
             .find()
-            .skip(pageIndex)
             .limit(pageSize)
-            // .populate('categoryId');
+            .skip(pageIndex)
+
+         // .populate('categoryId');
          var result = {
             error: 1,
             data: products,
@@ -113,6 +118,21 @@ export class ProductsService {
             message: error.message
          };
          return results;
+      }
+   };
+
+   async searchProducts(keyword: string) {
+      try {
+         const products = await this.productModel
+            .find({$text: {$search: keyword}})
+         var result = {
+            error: 1,
+            data: products,
+            status: HttpStatus.OK
+         };
+         return result;
+      } catch (error) {
+         return error.message;
       }
    }
 }

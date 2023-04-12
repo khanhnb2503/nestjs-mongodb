@@ -79,11 +79,20 @@ export class ProductsController {
       return this.productsService.removeProducts(id);
    }
 
-   @Get('paging/:pageIndex/:pageSize')
+   @Get('paging/:pageIndex/:pageSize/:sortName/:sortType')
    paging(
       @Param('pageIndex') pageIndex: number,
-      @Param('pageSize') pageSize : number,
-   ) {      
-      return this.productsService.paging(pageSize,pageIndex);
+      @Param('pageSize') pageSize: number,
+   ) {
+      return this.productsService
+         .paging(
+            pageSize,
+            pageIndex,
+         );
+   };
+
+   @Get('search/:keyword')
+   search(@Param('keyword') keyword: string) {
+      return this.productsService.searchProducts(keyword);
    }
 }

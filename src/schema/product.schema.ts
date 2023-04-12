@@ -4,6 +4,7 @@ import { Categories } from './category.schema';
 import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 
+
 export type ProductDocument = Products & Document;
 
 @Schema({
@@ -31,3 +32,4 @@ export class Products {
 }
 
 export const ProductsSchema = SchemaFactory.createForClass(Products);
+ProductsSchema.index({'$**': 'text'});
