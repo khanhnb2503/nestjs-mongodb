@@ -79,7 +79,7 @@ export class ProductsController {
       return this.productsService.removeProducts(id);
    }
 
-   @Get('paging/:pageIndex/:pageSize/:sortName/:sortType')
+   @Get('paging/:pageIndex/:pageSize')
    paging(
       @Param('pageIndex') pageIndex: number,
       @Param('pageSize') pageSize: number,

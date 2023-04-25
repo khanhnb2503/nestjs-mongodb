@@ -37,10 +37,14 @@ export class CreateProductDto {
       type: 'string',
       format: 'string',
       enum: [
-         '642d3263dc8b47e304af399a',
-         '642d3277dc8b47e304af399c',
-         '642d3293dc8b47e304af399e',
-         '642d32aadc8b47e304af39a0'
+         '643653fecb3f7429a67dc4e4',
+         '6436541dcb3f7429a67dc4e6',
+         '64365430cb3f7429a67dc4e8',
+         '64365442cb3f7429a67dc4ea',
+         '64365455cb3f7429a67dc4ec',
+         '64365461cb3f7429a67dc4ee',
+         '64365477cb3f7429a67dc4f0',
+         '64365488cb3f7429a67dc4f2',
       ],
       description: 'The categoryId of the Categories'
    })

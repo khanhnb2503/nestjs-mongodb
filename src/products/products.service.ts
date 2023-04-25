@@ -13,7 +13,6 @@ export class ProductsService {
       @InjectModel(Products.name)
       @InjectModel(Categories.name)
       private productModel: Model<ProductDocument>,
-      // private categoryModel: Model<CategoryDocument>
    ) { }
 
    async createProducts(
@@ -104,6 +103,7 @@ export class ProductsService {
             .find()
             .limit(pageSize)
             .skip(pageIndex)
+            // .sort({ name: -1 })
 
          // .populate('categoryId');
          var result = {
